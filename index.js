@@ -23,7 +23,7 @@ async function startgame({level}){
     let c=chances;
     while(chances--)
     { 
-      let random=Math.ceil(Math.random()*100);
+      let random=Math.ceil(Math.random()*100)+1;
       let guess=await rl.question(`Enter your guess:`);
       guess=Number(guess)
       if(guess===random)
@@ -57,8 +57,5 @@ const rl = readline.createInterface({ input, output });
 
 let level = await rl.question('Enter your choice:');
 await startgame({level:Number(level)});
-console.log(name)
-
-
 // Always close the interface or the CLI process will hang open
 rl.close(); 
