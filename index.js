@@ -1,6 +1,7 @@
 import readline from 'node:readline/promises';
 // Map stdin to 'input' and stdout to 'output' using object renaming
 import { stdin as input, stdout as output } from 'node:process';
+import { date } from 'zod';
 async function startgame({level}){
     if(level===1){
       var chances=10;
@@ -21,6 +22,7 @@ async function startgame({level}){
     }
     console.log(`Let's start the game!`)
     let c=chances;
+    let st=new Date();
     while(chances--)
     { 
       let random=Math.ceil(Math.random()*100)+1;
@@ -28,7 +30,7 @@ async function startgame({level}){
       guess=Number(guess)
       if(guess===random)
       {
-        console.log(`Congratulations! You guessed the correct number in ${c-chances} attempts.`)
+        console.log(`Congratulations! You guessed the correct number in ${c-chances} attempts and you have taken ${(new Date()-st)/1000} seconds.`)
         process.exit(1);
       }
       else{
@@ -37,7 +39,8 @@ async function startgame({level}){
         console.log(random,guess);
       }
     }
-    console.log(`You lost the game!`)
+    let et=(new Date()-st)/1000;
+    console.log(`You lost the game! and you have take ${et} seconds`)
     process.exit(1);
 }
 console.log(`Welcome to the Number Guessing Game!
