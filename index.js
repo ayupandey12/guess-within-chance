@@ -31,16 +31,19 @@ async function startgame({level}){
       if(guess===random)
       {
         console.log(`Congratulations! You guessed the correct number in ${c-chances} attempts and you have taken ${(new Date()-st)/1000} seconds.`)
-        process.exit(1);
+        break;
       }
       else{
 
         guess>random?console.log(`Incorrect! The number is less than ${guess}.`):console.log(`Incorrect! The number is greater than ${guess}.`)
       }
     }
-    let et=(new Date()-st)/1000;
+    if(chances<0)
+    {
+      let et=(new Date()-st)/1000;
     console.log(`You lost the game! and you have take ${et} seconds`)
-    process.exit(1);
+    }
+    
 }
 console.log(`Welcome to the Number Guessing Game!
 I'm thinking of a number between 1 and 100.
@@ -59,5 +62,15 @@ const rl = readline.createInterface({ input, output });
 
 let level = await rl.question('Enter your choice:');
 await startgame({level:Number(level)});
+while(true)
+{
+let ans=await rl.question('want to play more! ans yes or no: ');
+if(ans==='yes')
+{
+  await startgame({level:Number(level)});
+}
+else process.exit(1);
+}
+
 // Always close the interface or the CLI process will hang open
 rl.close(); 
