@@ -23,9 +23,9 @@ async function startgame({level}){
     console.log(`Let's start the game!`)
     let c=chances;
     let st=new Date();
+    let random=Math.ceil(Math.random()*100)+1;
     while(chances--)
     { 
-      let random=Math.ceil(Math.random()*100)+1;
       let guess=await rl.question(`Enter your guess:`);
       guess=Number(guess)
       if(guess===random)
@@ -36,7 +36,6 @@ async function startgame({level}){
       else{
 
         guess>random?console.log(`Incorrect! The number is less than ${guess}.`):console.log(`Incorrect! The number is greater than ${guess}.`)
-        console.log(random,guess);
       }
     }
     let et=(new Date()-st)/1000;
